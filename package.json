@@ -15,6 +15,9 @@
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "create:wallet": "ts-node scripts/create-wallet.ts",
+    "deploy:testnet": "ts-node scripts/deploy-testnet.ts",
+    "test:smoke": "ts-node scripts/smoke-test.ts",
     "contracts:compile": "cd contracts && npm run compile",
     "contracts:test": "cd contracts && npm run test",
     "frontend:dev": "cd frontend && npm run dev",
@@ -23,7 +26,12 @@
     "backend:build": "cd backend && npm run build"
   },
   "devDependencies": {
+    "@ton/crypto": "^4.0.0",
+    "@ton/ton": "^13.0.0",
+    "dotenv": "^16.0.0",
     "prettier": "^3.0.0",
-    "eslint": "^8.0.0"
+    "eslint": "^8.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
   }
 }
