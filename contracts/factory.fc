@@ -1,0 +1,38 @@
+#pragma version >=0.2.0;
+
+#include "stdlib.fc";
+
+;; Factory: Atomic handle registration
+;;
+;; Coordinates:
+;; 1. Mint profile NFT
+;; 2. Deploy per-profile token (Jetton)
+;; 3. Create DEX pool (TON/$TOKEN)
+;; 4. Initialize LP staking
+;; 5. Distribute fees
+
+;; Register handle atomically
+() register_handle_atomic(slice owner, slice handle, cell profile_meta) impure inline {
+  check_valid_handle(handle);
+  
+  ;; TODO: Implement atomic registration
+  ;; 1. profile.register_handle(owner, handle, profile_meta)
+  ;; 2. Deploy Jetton token contract
+  ;; 3. dex.init_pool(TON, TOKEN, 5 TON + 50M TOKEN)
+  ;; 4. lp_staking.lock_creator_lp(creator_lp_nft)
+  ;; 5. handle_fee_vault.deposit(fee, 10/90 split)
+  
+  throw(0);  ;; Placeholder
+}
+
+;; Pause factory (admin only)
+() pause_factory() impure inline {
+  ;; TODO: Verify admin, set paused = true
+  throw(0);
+}
+
+;; Resume factory (admin only)
+() resume_factory() impure inline {
+  ;; TODO: Verify admin, set paused = false
+  throw(0);
+}

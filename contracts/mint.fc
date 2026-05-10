@@ -1,0 +1,28 @@
+#pragma version >=0.2.0;
+
+#include "stdlib.fc";
+
+;; Mint, Voice, Remix verbs
+;;
+;; Mint: Original post
+;; Voice: Reply to post
+;; Remix: Quote post
+
+;; Create original post (Mint)
+() create_post(slice author, slice text, cell media, cell tags, cell mentions) impure inline {
+  ;; TODO: Append to history
+  ;; Emit post event
+  throw(0);
+}
+
+;; Reply to post (Voice)
+() reply_to_post(slice author, int parent_post_id, slice text, cell media) impure inline {
+  ;; TODO: Create reply post, link to parent
+  throw(0);
+}
+
+;; Quote post (Remix)
+() quote_post(slice author, int quoted_post_id, slice text, cell media) impure inline {
+  ;; TODO: Create remix post, store quote reference
+  throw(0);
+}

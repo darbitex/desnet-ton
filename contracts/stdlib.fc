@@ -1,0 +1,99 @@
+#pragma version >=0.2.0;
+
+;; Common utilities and safe math for DeSNet TON
+
+;; Error codes
+const ERROR_INVALID_HANDLE = 100;
+const ERROR_HANDLE_TAKEN = 101;
+const ERROR_INSUFFICIENT_FUNDS = 102;
+const ERROR_INVALID_OPERATION = 103;
+const ERROR_ACCESS_DENIED = 104;
+const ERROR_INSUFFICIENT_GAS = 105;
+const ERROR_INVALID_TOKEN = 106;
+const ERROR_OVERFLOW = 107;
+const ERROR_UNDERFLOW = 108;
+
+;; Safe addition
+() safe_add(int a, int b) inline {
+  int sum = a + b;
+  throw_if(ERROR_OVERFLOW, sum < 0);
+  return sum;
+}
+
+;; Safe subtraction
+() safe_sub(int a, int b) inline {
+  throw_if(ERROR_UNDERFLOW, a < b);
+  return a - b;
+}
+
+;; Safe multiplication
+() safe_mul(int a, int b) inline {
+  if (a == 0 || b == 0) return 0;
+  int product = a * b;
+  throw_if(ERROR_OVERFLOW, product / a != b);
+  return product;
+}
+
+;; Safe division
+() safe_div(int a, int b) inline {
+  throw_if(103, b == 0);
+  return a / b;
+}
+
+;; Check valid handle
+() check_valid_handle(slice handle) inline {
+  int len = handle.slice_data_equal?(""a) ? 0 : 1;
+  throw_if(ERROR_INVALID_HANDLE, len == 0 || len > 64);
+}
+
+;; Calculate handle fee
+int calculate_handle_fee(int handle_length) inline {
+  if (handle_length == 1) return 10000000000;      ;; 10 TON
+  if (handle_length == 2) return 5000000000;       ;; 5 TON
+  if (handle_length == 3) return 2000000000;       ;; 2 TON
+  if (handle_length <= 5) return 1000000000;       ;; 1 TON
+  return 100000000;                                 ;; 0.1 TON (6+ chars)
+}
+
+;; Constant product formula: (x + dx) * (y - dy) = x * y
+;; dy = y * dx / (x + dx)
+int get_amount_out(int amount_in, int reserve_in, int reserve_out) inline {
+  throw_if(ERROR_INSUFFICIENT_FUNDS, reserve_in == 0 || reserve_out == 0);
+  
+  int fee_deduction = amount_in / 111;  ;; 9 bps ≈ 1/111
+  int amount_in_with_fee = amount_in - fee_deduction;
+  
+  int numerator = amount_in_with_fee * reserve_out;
+  int denominator = reserve_in + amount_in_with_fee;
+  
+  return numerator / denominator;
+}
+
+;; Reverse formula for amount_in given amount_out
+int get_amount_in(int amount_out, int reserve_in, int reserve_out) inline {
+  throw_if(ERROR_INSUFFICIENT_FUNDS, reserve_in == 0 || reserve_out == 0);
+  throw_if(ERROR_INSUFFICIENT_FUNDS, amount_out >= reserve_out);
+  
+  int numerator = reserve_in * amount_out * 111;
+  int denominator = (reserve_out - amount_out) * 102;  ;; adjusted for 9 bps
+  
+  return (numerator + denominator - 1) / denominator;   ;; ceil division
+}
+
+;; Pack address + handle hash into state
+cell pack_handle_state(slice owner, slice handle, cell profile_data) inline {
+  return begin_cell()
+    .store_slice(owner)
+    .store_slice(handle)
+    .store_ref(profile_data)
+    .end_cell();
+}
+
+;; Unpack handle state
+(slice, slice, cell) unpack_handle_state(cell state) inline {
+  slice cs = state.begin_parse();
+  slice owner = cs~load_msg_addr();
+  slice handle = cs~load_ref().begin_parse();
+  cell profile_data = cs~load_ref();
+  return (owner, handle, profile_data);
+}

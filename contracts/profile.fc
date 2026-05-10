@@ -1,0 +1,51 @@
+#pragma version >=0.2.0;
+
+#include "stdlib.fc";
+
+;; Profile NFT & Handle Registry
+;;
+;; State: handle_to_address, address_to_handle, profile_data
+
+;; Register a new handle (called by factory)
+() register_handle(slice owner, slice handle, cell profile_data) impure inline {
+  check_valid_handle(handle);
+  
+  ;; TODO: Implement handle registration logic
+  ;; - Verify handle not taken
+  ;; - Calculate fee based on length
+  ;; - Mint PID NFT to owner
+  ;; - Store mapping: handle -> PID address
+  ;; - Store metadata
+  
+  throw(0);  ;; Placeholder
+}
+
+;; Get PID address by handle
+slice get_address_by_handle(slice handle) inline {
+  ;; TODO: Lookup in handle_to_address map
+  throw(0);  ;; Placeholder
+}
+
+;; Get handle by PID address
+slice get_handle_by_address(slice addr) inline {
+  ;; TODO: Lookup in address_to_handle map
+  throw(0);  ;; Placeholder
+}
+
+;; Transfer profile to new owner
+() transfer_handle(slice owner, slice new_owner) impure inline {
+  ;; TODO: Verify owner, transfer NFT, update mappings
+  throw(0);  ;; Placeholder
+}
+
+;; Update profile metadata
+() update_profile(slice owner, cell new_profile_data) impure inline {
+  ;; TODO: Verify owner, update profile data
+  throw(0);  ;; Placeholder
+}
+
+;; Get profile metadata
+cell get_profile_metadata(slice handle) inline {
+  ;; TODO: Return profile data
+  throw(0);  ;; Placeholder
+}

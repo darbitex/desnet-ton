@@ -1,0 +1,41 @@
+#pragma version >=0.2.0;
+
+#include "stdlib.fc";
+
+;; LP Staking: Position-based rewards
+;;
+;; Stake types:
+;; - Locked: Creator's seed LP, never withdrawable
+;; - Free: Publicly deposited LP, withdrawable
+;;
+;; Rewards: Drained from lp_emission reserve
+
+;; Lock creator's LP (called at registration)
+() lock_creator_lp(slice creator, int lp_amount) impure inline {
+  ;; TODO: Store creator's LP position as permanently locked
+  throw(0);
+}
+
+;; Deposit free LP stake
+() deposit_lp(slice user, int lp_amount) impure inline {
+  ;; TODO: Track user's free LP position
+  throw(0);
+}
+
+;; Withdraw free LP stake
+() withdraw_lp(slice user, int lp_amount) impure inline {
+  ;; TODO: Verify user owns position, transfer LP
+  throw(0);
+}
+
+;; Claim LP rewards
+() claim_lp_rewards(slice user) impure inline {
+  ;; TODO: Calculate claimable rewards, transfer tokens
+  throw(0);
+}
+
+;; Get user's pending rewards
+int get_pending_rewards(slice user) inline {
+  ;; TODO: Calculate pending rewards
+  throw(0);
+}

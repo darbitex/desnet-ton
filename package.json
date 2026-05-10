@@ -1,0 +1,29 @@
+{
+  "name": "desnet-ton",
+  "version": "0.1.0",
+  "description": "Decentralized Social Network on TON Blockchain",
+  "license": "Unlicense",
+  "private": true,
+  "workspaces": [
+    "contracts",
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "contracts:compile": "cd contracts && npm run compile",
+    "contracts:test": "cd contracts && npm run test",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:build": "cd backend && npm run build"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0"
+  }
+}

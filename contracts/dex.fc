@@ -1,0 +1,53 @@
+#pragma version >=0.2.0;
+
+#include "stdlib.fc";
+
+;; Decentralized Exchange: Constant-product AMM
+;;
+;; Pair: TON / $TOKEN (per profile)
+;; Fee: 9 bps (100% to LP)
+
+;; Initialize DEX pool for a token
+() init_pool(slice token_addr, int initial_ton, int initial_token) impure inline {
+  ;; TODO: Initialize pool with initial reserves
+  ;; Verify amounts > 0
+  ;; Create LP NFT
+  ;; Calculate initial LP supply
+  throw(0);  ;; Placeholder
+}
+
+;; Swap TON for token
+() swap_ton_to_token(slice user, int amount_in, int min_out) impure inline {
+  ;; TODO: Implement swap
+  ;; 1. Calculate amount_out using get_amount_out()
+  ;; 2. Verify amount_out >= min_out
+  ;; 3. Update reserves
+  ;; 4. Transfer tokens to user
+  ;; 5. Accrue fee to LP reserve
+  throw(0);
+}
+
+;; Swap token for TON
+() swap_token_to_ton(slice user, int amount_in, int min_out) impure inline {
+  ;; TODO: Implement swap (reverse direction)
+  throw(0);
+}
+
+;; Add liquidity
+() add_liquidity(slice user, int ton_amount, int token_amount) impure inline {
+  ;; TODO: Implement LP deposit
+  ;; Mint LP NFT proportional to contribution
+  throw(0);
+}
+
+;; Remove liquidity
+() remove_liquidity(slice user, int lp_amount) impure inline {
+  ;; TODO: Implement LP withdrawal
+  throw(0);
+}
+
+;; Get swap quote
+(int, int) get_swap_quote(int amount_in, int reverse) inline {
+  ;; TODO: Return (amount_out, fee)
+  throw(0);
+}

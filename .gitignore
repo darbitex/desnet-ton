@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+*.lock
+yarn.lock
+package-lock.json
+
+# Compiled FunC
+*.fif
+*.boc
+*.cell
+
+# Build outputs
+build/
+dist/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Walrus
+.walrus/
+walrus-cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
